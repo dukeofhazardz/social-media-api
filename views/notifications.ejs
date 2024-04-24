@@ -1,0 +1,45 @@
+<%- include('header') -%>
+<br>
+
+<div class="body" style="margin-left: 10px;">
+  <h4> Notifications </h4>
+</div><br>
+
+<% if (notifications.length === 0) { %>
+  <p>Your notifications will appear here...</p>
+<% } %>
+
+<section class="post-section">
+  <div class="container mb-3" style="background-color: rgb(227, 223, 223); padding: 30px; display: flex; flex-direction: column; align-items: center;">
+    <% if (notifications && notifications.length > 0) { %>
+      <% notifications.forEach(notification => { %>
+        <% if (notification.postId) { %>
+          <% if (notification.notificationType === 'like') { %>
+            <p class="mb-3 mt-3"><%= notification.user.firstName %> <%= notification.user.lastName %> liked your <a href="/post/<%= notification.postId%>">Post</a>   <p class="small text-muted"><%= moment(notification.createdAt).fromNow() %></p></p>
+          <% } else { %>
+            <p class="mb-3 mt-3"><%= notification.user.firstName %> <%= notification.user.lastName %> commented on your <a href="/post/<%= notification.postId%>">Post</a>   <p class="small text-muted"><%= moment(notification.createdAt).fromNow() %></p></p>
+          <% } %>
+        <% } else { %>
+          <p class="mb-3 mt-3"><%= notification.user.firstName %> <%= notification.user.lastName %> followed you   <p class="small text-muted"><%= moment(notification.createdAt).fromNow() %></p></p>
+        <% } %>
+      <% }); %>
+    <% } %>
+      <!-- Pagination controls -->
+      <div class="pagination">
+        <% if (currentPage > 1) { %>
+            <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+        <% } %>
+        
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="?page=<%= i %>&limit=<%= limit %>" <%= i === currentPage ? 'class="active"' : '' %>><%= i %></a>
+        <% } %>
+        
+        <% if (currentPage < totalPages) { %>
+            <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+        <% } %>
+      </div>
+  </div>
+  
+</section>
+
+<%- include('footer') -%>

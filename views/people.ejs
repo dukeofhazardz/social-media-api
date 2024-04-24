@@ -1,0 +1,57 @@
+<%- include('header') -%>
+<br>
+
+<div class="body" style="padding-bottom: 10px; margin-left: 10px;">
+  <h4> People on Social Media API </h4>
+</div>
+
+<section class="post-section">
+  <div class="container mb-3" style="background-color: rgb(227, 223, 223); padding: 30px; display: flex; flex-direction: column; align-items: center;">
+    <div class="col-sm-8">
+      <div class="jumbotron">
+        <div class="row">
+          <% if (allUsers && allUsers.length > 0) { %>
+            <% allUsers.forEach(person => { %>
+              <div class="col-sm-4">
+                <img src="/<%= person.profilePicture %>" style="width: 40px;">
+                <a href="/user/<%= person._id %>"><%=person.firstName%> <%=person.lastName%></a>
+                <p class="mt-2"><%=person.address%></p>
+                <span class="badge badge-dark"><p class="mb-1 text-capitalize"> <i class="fas fa-follower"></i><a href="/followers/<%= person._id%>" style="color: white;"><%= person.followers.length %> Followers</a></p></span>
+                <span class="badge badge-dark"><p class="mb-1 text-capitalize"> <i class="fas fa-following"></i><a href="/following/<%= person._id%>" style="color: white;"><%= person.following.length %> Following</a></p></span>
+                <% if (currentUser._id.toString() !== person._id.toString()) { %>
+                  <% if (currentUser.following && currentUser.following.includes(person._id)) { %>
+                    <form action="/unfollow" class="btn btn-outline-primary mt-3" method="POST">
+                      <input type="hidden" name="userId" value="<%= person._id %>">
+                      <button type="submit">Unfollow</button>
+                    </form>
+                  <% } else { %>
+                    <form action="/follow" class="btn btn-outline-primary mt-3" method="POST">
+                      <input type="hidden" name="userId" value="<%= person._id %>">
+                      <button type="submit">Follow</button>
+                    </form>
+                  <% } %>
+                <% } %>
+              </div>
+            <% }); %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <!-- Pagination controls -->
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+          <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+      <% } %>
+      
+      <% for (let i = 1; i <= totalPages; i++) { %>
+          <a href="?page=<%= i %>&limit=<%= limit %>" <%= i === currentPage ? 'class="active"' : '' %>><%= i %></a>
+      <% } %>
+      
+      <% if (currentPage < totalPages) { %>
+          <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('footer') -%>

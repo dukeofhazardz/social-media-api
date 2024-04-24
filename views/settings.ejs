@@ -1,0 +1,22 @@
+<%- include('header') -%>
+<br>
+
+<section class="settings-form">
+  <div class="container mb-3" style="background-color: rgb(227, 223, 223); padding: 50px; display: flex; flex-direction: column; align-items: center;">
+    <div class="form-div">
+      <form action="/settings" method="POST" class="pt-3" enctype="multipart/form-data">
+        <div class="form-outline mb-2">
+          <!-- Optional: File input for uploading an image -->
+          <label class="form-control" for="media">Upload a Profile Picture</label>
+          <input class="form-control" type="file" name="media" id="media" accept="image/*">
+        </div>
+        <div class="form-outline mb-2">
+          <!-- Post button -->
+          <button type="submit" class="btn btn-success text-end rounded-pill">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('footer') -%>

@@ -1,0 +1,22 @@
+<%- include('header') -%>
+<br>
+<div class="intro" style="padding: 30px; display: flex; flex-direction: column; align-items: center;">
+  <h4>Welcome to Social Media API</h4>
+</div>
+
+<main>
+  <div class="container mb-3" style="background-color: rgb(227, 223, 223); padding: 30px; display: flex; flex-direction: column; align-items: center;">
+    <div class="col-sm-8">
+      <div class="jumbotron">
+        <div class="body">
+          <% if (typeof currentUser === 'undefined') { %>
+            <p> Please login to view posts from accounts you follow. </p>
+          <% } else { %>
+            <p>Please click here to view posts from people you follow...<a href="/feeds">Feeds</a></p>
+          <% } %>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('footer') -%>

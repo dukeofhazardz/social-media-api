@@ -1,0 +1,25 @@
+<%- include('header') -%>
+<br>
+<h5>Following</h5><br>
+
+
+<main>
+  <div class="container mb-3" style="background-color: rgb(227, 223, 223); padding: 30px; display: flex; flex-direction: column; align-items: center;">
+    <div class="col-sm-8">
+      <div class="jumbotron">
+        <div class="row">
+          <% if (followingList && followingList.length > 0) { %>
+            <% followingList.forEach(user => { %>
+              <div class="col-sm-4">
+                <img src="/<%= user.profilePicture %>" style="width: 40px;">
+                <a href="/user/<%= user._id %>"><%=user.firstName%> <%=user.lastName%></a>
+              </div>
+            <% }); %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('footer') -%>
